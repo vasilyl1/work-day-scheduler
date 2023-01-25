@@ -1,7 +1,26 @@
+let hourElement = [];
+/*let containerFluid = document.getElementsByClassName("container-fluid");*/
+let containerFluid = document.querySelector("div").setAttribute("id", "containerFLuid");
+console.log(containerFluid);
+
+
+
+
 
 $('#currentDay').text(dayjs().format('dddd, MMMM D')); // adds the date
 document.getElementsByTagName("body")[0].classList.add ("border", "border-dark", "rounded", "m-4"); // adds border
 document.getElementsByTagName("header")[0].classList.add ("text-center"); // centers the text
+containerFluid[0].classList.add ("border-top", "border-5", "border-dark"); // add border
+
+for (let i = 0; i < 24; i++) { // create div element for every hour
+  hourElement [i] = document.createElement("div");
+  hourElement[i].classList.add("row", "time-block");
+  hourElement[i].setAttribute("id", "hour-"+i);
+  /*containerFuid[0].appendChild(hourElement[i]);*/
+  document.getElementById("containerFluid").appendChild(hourElement(i));
+
+}
+
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
