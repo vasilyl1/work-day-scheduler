@@ -6,6 +6,7 @@ let containerFluid = document.getElementsByClassName("container-fluid"); // cale
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+
 $(function () {
 
   //
@@ -41,6 +42,7 @@ $(function () {
     let col8Element = document.createElement("textarea");
     col8Element.classList.add("col-8", "col-md-10", "description");
     col8Element.rows = 3;
+    col8Element.setAttribute("id","t" + i); // set id for storage
     hourElement[i].appendChild(col8Element);
 
     let btn = document.createElement("button"); // add button for each block
@@ -70,8 +72,8 @@ $(function () {
     document.getElementById("h" + i).addEventListener("click", function (event) {
       // save button clicked - update browser local storage
       event.preventDefault();
-      localStorage.setItem("hourElement" + i, JSON.stringify(hourElement[i]));
-      console.log(JSON.stringify(hourElement[i]));
+      let textInput = document.getElementById("t" + i).value;
+      localStorage.setItem("textInput" + i, JSON.stringify(textInput)); //write the text to the localstorage
     });
   }
 
