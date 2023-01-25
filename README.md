@@ -1,17 +1,27 @@
-# work-day-scheduler
+# Work Day Scheduler
 Simple calendar application that allows a user to save events for each hour of the day
 
 ## Description
 
-Advanced CSS project aims to demonstrate CSS functionality which greatly helps in improving of the user interface experience.
+This application runs in the browser and features dynamically updated HTML and CSS powered by jQuery.
 
 ## Installation
 
-N/A
+An app is live on Internet and requires to enter and run the following URL from the browser:
+
+https://vasilyl1.github.io/work-day-scheduler
 
 ## Usage
 
-To use Advanced CSS Project, you can review the notes in each section. 
+When app is launched in the browser, the user is presented with the list of daily events in a view of different colored blocks for every hour of the day.
+
+The blocks differ by the color for the past, present and future hours and there is a timer which updates these colors as the time goes by.
+
+When the events are entered and save buttons are clicked, the information is stored in the local storage of the browser. So when refreshed on that page, the existing information will be loaded from the local storage and updated in the calendar.
+
+Attached screenshot features the screen of the loaded application:
+
+![Screenshot1](./assets/images/screenshot1.png)
 
 ## Credits
 
