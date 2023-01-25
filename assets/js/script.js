@@ -1,23 +1,47 @@
 let hourElement = [];
-/*let containerFluid = document.getElementsByClassName("container-fluid");*/
-let containerFluid = document.querySelector("div").setAttribute("id", "containerFLuid");
-console.log(containerFluid);
-
-
-
+let containerFluid = document.getElementsByClassName("container-fluid");
 
 
 $('#currentDay').text(dayjs().format('dddd, MMMM D')); // adds the date
-document.getElementsByTagName("body")[0].classList.add ("border", "border-dark", "rounded", "m-4"); // adds border
-document.getElementsByTagName("header")[0].classList.add ("text-center"); // centers the text
-containerFluid[0].classList.add ("border-top", "border-5", "border-dark"); // add border
+document.getElementsByTagName("body")[0].classList.add("border", "border-dark", "rounded", "m-4"); // adds border
+document.getElementsByTagName("header")[0].classList.add("text-center"); // centers the text
+containerFluid[0].classList.add("border-top", "border-5", "border-dark"); // add border
 
-for (let i = 0; i < 24; i++) { // create div element for every hour
-  hourElement [i] = document.createElement("div");
+for (let i = 0; i < 24; i++) { // create and append div element for every hour
+  hourElement[i] = document.createElement("div");
   hourElement[i].classList.add("row", "time-block");
-  hourElement[i].setAttribute("id", "hour-"+i);
-  /*containerFuid[0].appendChild(hourElement[i]);*/
-  document.getElementById("containerFluid").appendChild(hourElement(i));
+  if (dayjs().hour() === i) { //current hour
+    hourElement[i].classList.add("row", "time-block", "present");
+  }
+  else if (dayjs().hour() > i) { // past
+    hourElement[i].classList.add("row", "time-block", "past");
+  } else { // future
+    hourElement[i].classList.add("row", "time-block", "future");
+  }
+
+  hourElement[i].setAttribute("id", "hour-" + i);
+
+  let col2Element = document.createElement("div"); // define timeblock style
+  col2Element.classList.add("col-2", "col-md-1", "hour", "text-center", "py-3");
+  if (i < 12) { col2Element.textContent = i + "AM"; } else { col2Element.textContent = i + "PM"; }
+  hourElement[i].appendChild(col2Element);
+  let col8Element = document.createElement("textarea");
+  col8Element.classList.add("col-8", "col-md-10", "description");
+  col8Element.rows = 3;
+  hourElement[i].appendChild(col8Element);
+
+  let btn = document.createElement("button"); // add button for each block
+  btn.classList.add("btn", "saveBtn", "col-2", "col-md-1");
+  btn.ariaLabel = "save";
+
+  let iElement = document.createElement("i"); // option for the button
+  iElement.classList.add("fas", "fa-save");
+  iElement.ariaHidden = "true";
+  btn.appendChild(iElement);
+  hourElement[i].appendChild(btn);
+
+  containerFluid[0].appendChild(hourElement[i]);
+
 
 }
 
