@@ -1,6 +1,7 @@
 let hourElement = []; // timing block
 let containerFluid = document.getElementsByClassName("container-fluid"); // calendar
-
+let timer;
+let currentHour = dayjs().hour(); // remembers current hour
 
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
@@ -20,6 +21,7 @@ $(function () {
   document.getElementsByTagName("body")[0].classList.add("border", "border-dark", "rounded", "m-4"); // adds border
   document.getElementsByTagName("header")[0].classList.add("text-center"); // centers the text
   containerFluid[0].classList.add("border-top", "border-5", "border-dark"); // add border
+
 
   for (let i = 0; i < 24; i++) { // create and append div element for every hour
     hourElement[i] = document.createElement("div");
@@ -42,8 +44,13 @@ $(function () {
     let col8Element = document.createElement("textarea");
     col8Element.classList.add("col-8", "col-md-10", "description");
     col8Element.rows = 3;
-    col8Element.setAttribute("id","t" + i); // set id for storage
-    hourElement[i].appendChild(col8Element);
+    col8Element.setAttribute("id", "t" + i); // set id for local storage
+    if (localStorage.getItem("textInput" + i) === undefined) { //initialize local storage
+      localStorage.setItem("textInput" + i, "");
+    }
+    col8Element.value = localStorage.getItem("textInput" + i); // sync with the screen input 
+
+    hourElement[i].appendChild(col8Element); // add into HTML
 
     let btn = document.createElement("button"); // add button for each block
     btn.classList.add("btn", "saveBtn", "col-2", "col-md-1");
@@ -72,11 +79,20 @@ $(function () {
     document.getElementById("h" + i).addEventListener("click", function (event) {
       // save button clicked - update browser local storage
       event.preventDefault();
-      let textInput = document.getElementById("t" + i).value;
-      localStorage.setItem("textInput" + i, JSON.stringify(textInput)); //write the text to the localstorage
+      localStorage.setItem("textInput" + i, document.getElementById("t" + i).value); //write the text to the localstorage
     });
   }
 
+
+  timer = setInterval(function(){ // manage the event when the hour changes
+    if (currentHour !== dayjs().hour()) { // change the block color if the time passed
+      hourElement[currentHour].classList.remove("present");
+      hourElement[currentHour].classList.add("past");
+      currentHour = dayjs().hour();
+      hourElement[currentHour].classList.remove("future");
+      hourElement[currentHour].classList.add("present");
+    }
+  },60000); // calls timer every minute
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
