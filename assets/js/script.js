@@ -1,3 +1,8 @@
+
+$('#currentDay').text(dayjs().format('dddd, MMMM D')); // adds the date
+document.getElementsByTagName("body")[0].classList.add ("border", "border-dark", "rounded", "m-4"); // adds border
+document.getElementsByTagName("header")[0].classList.add ("text-center"); // centers the text
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
