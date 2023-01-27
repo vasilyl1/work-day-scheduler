@@ -75,8 +75,19 @@ $(function () {
       hourElement[currentHour].classList.remove("present");
       hourElement[currentHour].classList.add("past");
       currentHour = dayjs().hour();
-      hourElement[currentHour].classList.remove("future");
-      hourElement[currentHour].classList.add("present");
+     
+      if (currentHour === 0) { // next day - update all blocks to future
+        hourElement[0].classList.remove("past");
+        hourElement[0].classList.add("present");
+        for (let j = 1; j < 24; j++) {
+          hourElement[j].classList.remove("past");
+          hourElement[j].classList.add("future");
+        }
+
+      } else {
+        hourElement[currentHour].classList.remove("future");
+        hourElement[currentHour].classList.add("present");
+      }
     }
   },60000); // calls timer every one minute
   
